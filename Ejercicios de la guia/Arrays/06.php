@@ -28,6 +28,5 @@
         echo "Los promedios son mayores a 6";
     }
 
-    echo "<br/>";
-    echo "Promedio de notas: $promedio";
+    echo "<br/>Promedio de notas: $promedio";
     
