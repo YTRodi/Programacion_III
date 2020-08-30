@@ -9,12 +9,13 @@ $a2 = new Auto("Ford", "Negro", 1000000);
 $a3 = new Auto("Fiat", "Azul");
 
 echo $garage->Add($a1);
-echo $garage->Add($a1);
+echo $garage->Add($a1); //Repetido
 echo $garage->Add($a2);
 echo $garage->Add($a3);
 
 echo $garage->MostrarGarage();
-echo $garage->Remove($a2); //Falta testear esta función
+echo $garage->Remove($a2);
+echo $garage->Remove($a2); //El auto no está en el garage.
 //var_dump($garage);
 echo $garage->MostrarGarage();
 echo $garage->Add($a2);

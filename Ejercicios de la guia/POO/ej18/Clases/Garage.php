@@ -77,11 +77,11 @@ class Garage {
                 }
 
             }else{
-                $infoRemove .= "El auto no está en el garage.</br>";
+                $infoRemove .= "El auto no está en el garage.</br></br>";
             }
 
         }else{
-            $infoRemove .= "El auto es null. </br>";
+            $infoRemove .= "El auto es null. </br></br>";
         }
         
         return $infoRemove;
