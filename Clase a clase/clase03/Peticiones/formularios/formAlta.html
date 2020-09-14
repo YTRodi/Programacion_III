@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Formularios</title>
+		<style>
+			* {
+				font-size: 20px;
+			}
+		</style>
+		<!-- <script src="./js/script.js"></script> -->
+	</head>
+	<body>
+		<h2>Peticiones y archivos en PHP</h2>
+
+		<form target="_blank" action="../index.php" method="POST" id="formAlta">
+			<label style="padding: 5px" for="txtMarca" id="lblMarca">Marca</label>
+			<input autocomplete="off" type="text" name="marca" id="txtMarca" placeholder="Ingrese marca del auto" />
+
+			<br /><br />
+
+			<label for="txtModelo" id="lblModelo">Modelo</label>
+			<input autocomplete="off" type="text" name="modelo" id="txtModelo" placeholder="Ingrese modelo del auto" />
+
+			<br /><br />
+
+			<label for="txtColor" id="lblColor">Color</label>
+			<input autocomplete="off" type="text" name="color" id="txtColor" placeholder="Ingrese color del auto" />
+
+			<br /><br />
+
+			<label for="numbPrecio" id="lblPrecio">Precio</label>
+			<input autocomplete="off" type="number" name="precio" id="numbPrecio" placeholder="Ingrese precio del auto" />
+
+			<br /><br />
+
+			<input type="submit" value="Enviar" />
+		</form>
+
+		<!-- FORMULARIOS: Se usan para envio de información. -->
+		<!-- <form id="frm1" action="pagina1.php">
+			<label for="txtNombre" id="lblNombre">Nombre</label>
+			<input type="text" name="nombre" placeholder="Ingrese su nombre" id="txtNombre" />
+
+			<br /><br />
+
+			<label for="txtEdad">Edad</label>
+			<input type="text" name="edad" id="txtEdad" />
+
+			<br /><br />
+			<input type="submit" value="Alta persona" />
+		</form> -->
+	</body>
+</html>

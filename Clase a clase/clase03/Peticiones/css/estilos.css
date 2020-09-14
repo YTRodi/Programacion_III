@@ -1,0 +1,17 @@
+* {
+	/*PASARLO A ARCHIVO CSS*/
+	font-family: "Roboto", sans-serif;
+	/* margin: auto; */
+}
+
+td {
+	/* border: 1px solid black; */
+	padding: 10px;
+	text-align: center;
+}
+
+td input {
+	font-size: 20px;
+	width: 500px;
+	height: 60px;
+}

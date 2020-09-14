@@ -1,0 +1,5 @@
+[
+	{ "_id": 31, "_marca": "Chevrolet", "_modelo": "Cruze", "_color": "Negro", "_precio": 1350000 },
+	{ "_id": 88, "_marca": "Shelby", "_modelo": "GT-500", "_color": "Gris", "_precio": 9500000 },
+	{ "_id": 45, "_marca": "Lamborghini", "_modelo": "Gallardo", "_color": "Amarillo", "_precio": 10000000 }
+]

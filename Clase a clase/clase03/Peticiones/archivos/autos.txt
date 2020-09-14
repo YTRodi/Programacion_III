@@ -1,0 +1,4 @@
+74*Ford*Ka*Gris*75000
+6*Ford*Ka*Gris*75000
+21*Ford*Ka*Gris*75000
+85*Ford*Ka*Gris*75000

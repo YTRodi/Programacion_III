@@ -28,3 +28,18 @@ echo Auto::MostrarAuto($autoTres);
 
 echo "</br>Auto 5:";
 echo Auto::MostrarAuto($autoCinco);
+
+echo "<hr>";
+echo "MÉTODOS MÁGICOS</br>";
+echo $autoUno;
+echo "</br>";
+echo $autoUno->_marca;
+echo $autoUno->_color;
+echo $autoUno->_precio;
+
+echo "</br>";
+echo $autoUno->_marca;
+echo "</br>";
+$autoUno->_marca = "pepe";
+echo "</br>";
+echo $autoUno->_marca;

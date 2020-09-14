@@ -1,0 +1,5 @@
+97*Chevrolet*Cruze*Gris*1350000
+14*Chevrolet*Cruze*Gris*1350000
+75*Chevrolet*Cruze*Gris*1350000
+50*Chevrolet*Cruze*Gris*1350000
+29*Chevrolet*Cruze*Gris*1350000

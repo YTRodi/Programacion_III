@@ -53,7 +53,7 @@ class Auto{
 
     public function __toString()
     {
-        return $this->_marca . " " . $this->_color;
+        return $this->_marca . "*" . $this->_color . "*" . $this->_precio;
     }
 
     public function __get($name)
