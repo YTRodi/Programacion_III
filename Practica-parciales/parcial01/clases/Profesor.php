@@ -20,7 +20,7 @@ class Profesor extends FileHandler{
     //----------------------------------------------------------------
     //----------------------------------------------------------------
     //JSON
-    public static function SaveMateriaJSON(array $arrayObj = null){
+    public static function SaveProfesorJSON(array $arrayObj = null){
         try {
             echo parent::SaveJSON(Profesor::$pathProfesoresJSON,$arrayObj);
         } catch (\Throwable $e) {
@@ -28,33 +28,33 @@ class Profesor extends FileHandler{
         }
     }
 
-    public static function ReadMateriaJSON(){
+    public static function ReadProfesorJSON(){
         try {
             //Pasamanos...
             $listaFromArchivoJSON = parent::ReadJSON(Profesor::$pathProfesoresJSON);
-            $arrayMaterias = [];
+            $arrayProfesores = [];
 
             foreach ($listaFromArchivoJSON as $dato) {
-                $nuevaMateria = new Profesor($dato->_id,$dato->_nombre,$dato->_cuatrimestre);
-                array_push($arrayMaterias,$nuevaMateria);
+                $nuevoProfesor = new Profesor($dato->_legajo,$dato->_nombre);
+                array_push($arrayProfesores,$nuevoProfesor);
             }
 
         } catch (\Throwable $e) {
             throw new Exception($e->getMessage());
         }
         
-        return $arrayMaterias;
+        return $arrayProfesores;
     }
 
-    public static function autoID(array $array = null){
+    public function LegajoUnico(array $array = null){
         if($array !== null){
-            $id = 0;
+            $legajoRepetido = false;
             foreach ($array as $item) {
-                if($item->_id > $id){
-                    $id = $item->_id;
+                if($item->_legajo === $this->_legajo){
+                    $legajoRepetido = true;
                 }
             }
         }
-        return $id + 1;
+        return $legajoRepetido;
     }
 }

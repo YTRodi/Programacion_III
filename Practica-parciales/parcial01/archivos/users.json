@@ -1,1 +1,5 @@
-[{"_email":"fulanito@gmail.com","_password":"hola123"},{"_email":"yago@gmail.com","_password":"mortalkombat"},{"_email":"cami@gmail.com","_password":"ositos"}]
+[
+	{ "_email": "fulanito@gmail.com", "_password": "hola123" },
+	{ "_email": "yago@gmail.com", "_password": "mortalkombat" },
+	{ "_email": "cami@gmail.com", "_password": "ositos" }
+]

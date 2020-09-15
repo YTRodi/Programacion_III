@@ -82,6 +82,15 @@ switch ($path) {
                     var_dump($e->getTrace());
                 }
                 break;
+
+            case 'GET':
+                var_dump(Materia::ReadMateriaJSON());
+
+                $listaMaterias = Materia::ReadMateriaJSON();
+                foreach ($listaMaterias as $key) {
+                    echo $key . '<br/>';
+                }
+                break;
         }
         break;
     
@@ -91,18 +100,30 @@ switch ($path) {
                     try {
                         $legajo = $_POST['legajo'] ?? '';
                         $nombreProfesor = $_POST['nombreProfesor'] ?? '';
-    
-                        $nuevoProfesor = new Profesor(0,$nombreProfesor);
-    
-                        $listaProfesoresJSON = Profesor::ReadMateriaJSON();
-                        $nuevoProfesor->_legajo = Profesor::autoID($listaProfesoresJSON);
-                        array_push($listaProfesoresJSON,$nuevoProfesor);
-                        var_dump($listaProfesoresJSON);
-                        Profesor::SaveMateriaJSON($listaProfesoresJSON);
+                        $nuevoProfesor = new Profesor($legajo,$nombreProfesor);
+                        
+                        $listaProfesoresJSON = Profesor::ReadProfesorJSON();
+                        $legajoRepetido = $nuevoProfesor->LegajoUnico($listaProfesoresJSON);
+
+                        if(!$legajoRepetido){
+                            array_push($listaProfesoresJSON,$nuevoProfesor);
+                            Profesor::SaveProfesorJSON($listaProfesoresJSON);
+                        }else{
+                            throw new Exception('Legajo repetido!');
+                        }
     
                     } catch (\Throwable $e) {
                         echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
                         var_dump($e->getTrace());
+                    }
+                    break;
+
+                case 'GET':
+                    var_dump(Profesor::ReadProfesorJSON());
+
+                    $listaProfes = Profesor::ReadProfesorJSON();
+                    foreach ($listaProfes as $key) {
+                        echo $key . '<br/>';
                     }
                     break;
             }
