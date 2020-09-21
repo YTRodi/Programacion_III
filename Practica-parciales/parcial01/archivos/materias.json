@@ -1,12 +1,12 @@
 [
     {
         "_id": 1,
-        "_nombre": "Programacion3",
+        "_nombre": "Legislacion",
         "_cuatrimestre": "Tercero"
     },
     {
         "_id": 2,
-        "_nombre": "Laboratorio3",
+        "_nombre": "Legislacion",
         "_cuatrimestre": "Tercero"
     },
     {
@@ -31,52 +31,12 @@
     },
     {
         "_id": 7,
-        "_nombre": "Legislacion",
+        "_nombre": "Laboratorio III",
         "_cuatrimestre": "Tercero"
     },
     {
         "_id": 8,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 9,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 10,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 11,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 12,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 13,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 14,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 15,
-        "_nombre": "Legislacion",
-        "_cuatrimestre": "Tercero"
-    },
-    {
-        "_id": 16,
-        "_nombre": "Legislacion",
+        "_nombre": "Laboratorio III",
         "_cuatrimestre": "Tercero"
     }
 ]

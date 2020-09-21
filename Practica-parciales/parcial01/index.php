@@ -9,47 +9,24 @@ use \Firebase\JWT\JWT; //namespace
 include_once __DIR__.'/clases/Usuario.php';
 include_once __DIR__.'/clases/Materia.php';
 include_once __DIR__.'/clases/Profesor.php';
+include_once __DIR__.'/clases/Asignacion.class.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 $path = $_SERVER['PATH_INFO'] ?? 0;
 
 //JWT -----------------------------------------------------------------------------------
 $key = "ILoveMC";
-$token = '';
+try {
 
-// $payload = array(
-//     //Hace los claims con todo lo que necesitemos
-//     "iss" => "http://example.org",
-//     "aud" => "http://example.com",
-//     "iat" => 1356999524,
-//     "nbf" => 1357000000,
-//     "email" => "maggie@gmail.com",
-//     "type" => "admin"
-// );  
-//$jwt = JWT::encode($payload, $key);
-//print_r($jwt);
+    $token = $_SERVER['HTTP_TOKEN'] ?? '';
+    $decoded = JWT::decode($token, $key, array('HS256'));
+    // print_r($decoded);
 
-//Obtenemos el token (Decodifico)
-// $token = $_SERVER['HTTP_TOKEN'] ?? '';
-// try {
-//     //Si el token que me mandan es CORRECTO me devuelve => Objecto standart class con todos los claims.
-//     //Si el token que me mandan NO ES CORRECTO me devuelve => fatal error
-//     //var_dump($_SERVER['HTTP_TOKEN']);
-//     $decoded = JWT::decode($token, $key, array('HS256'));
-    
-//     print_r($decoded);
-//     //die(); 
+} catch (\Throwable $e) {
 
-// } catch (\Throwable $e) {
-//     echo 'error en jwt decode';
-//     //** RETORNAR UN JSON CON MENSAJE DE ERROR!!!!!!!!!!!!!!!!!!
-// }
+    echo '</br>Token Incorrecto.</br>';
 
-$token = $_SERVER['HTTP_TOKEN'] ?? '';
-echo $token;
-$decoded = JWT::decode($token, $key, array('HS256'));
-//echo $token;
-print_r($decoded);
+}
 
  
 switch ($path) {
@@ -57,6 +34,7 @@ switch ($path) {
         switch ($method) {
             case 'POST':
                 try {
+
                     $emailUsuario = $_POST['emailUsuario'] ?? '';
                     $password = $_POST['password'] ?? '';
 
@@ -68,8 +46,10 @@ switch ($path) {
                     Usuario::SaveUsuarioJSON($listaUsuariosJSON);
 
                 } catch (\Throwable $e) {
-                    echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
+
+                    echo 'Mensaje de error: ' . $e->getMessage() . '</br>';
                     var_dump($e->getTrace());
+
                 }
                 break;
         }
@@ -79,6 +59,7 @@ switch ($path) {
         switch ($method) {
             case 'POST':
                 try {
+
                     $emailUsuario = $_POST['emailUsuario'] ?? '';
                     $password = $_POST['password'] ?? '';
 
@@ -89,65 +70,124 @@ switch ($path) {
 
                     if($loginUser){
 
-                        //JWT (Creo mis claims personalizados)
-                        $payload = ['dataUser' => $nuevoUsuario->_email];
-
-                        // echo 'LOGIN CON ÉXITO!';
-                        //$jwt = JWT::encode($payload,$key);
+                        //payload (Creo mis claims personalizados)
+                        $payload = ['dataUser' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
                         $token = JWT::encode($payload,$key);
 
                         echo $token;
 
-                        echo '</br>Login con éxito!</br>';
+                        echo '<</brLogin con éxito!<</br';
 
                     }else{
+
                         echo 'LOGIN SIN ÉXITO :(';
+
                     }
 
                 } catch (\Throwable $e) {
-                    echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
+
+                    echo 'Mensaje de error: ' . $e->getMessage() . '</br>';
                     var_dump($e->getTrace());
+
                 }
                 break;
         }
         break;
 
     case '/materia':
-        switch ($method) {
-            case 'POST':
-                try {
-                    $nombreMateria = $_POST['nombreMateria'] ?? '';
-                    $cuatrimestre = $_POST['cuatrimestre'] ?? '';
-
-                    $nuevaMateria = new Materia(0,$nombreMateria,$cuatrimestre);
-
-                    $listaMateriasJSON = Materia::ReadMateriaJSON();
-                    $nuevaMateria->_id = Materia::autoID($listaMateriasJSON);
-                    array_push($listaMateriasJSON,$nuevaMateria);
-                    //var_dump($listaMateriasJSON);
-                    Materia::SaveMateriaJSON($listaMateriasJSON);
-
-                } catch (\Throwable $e) {
-                    echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
-                    var_dump($e->getTrace());
-                }
-                break;
-
-            case 'GET':
-                var_dump(Materia::ReadMateriaJSON());
-
-                $listaMaterias = Materia::ReadMateriaJSON();
-                foreach ($listaMaterias as $key) {
-                    echo $key . '<br/>';
-                }
-                break;
-        }
-        break;
-    
-        case '/profesor':
+        if($decoded->type === 'ADMIN'){ //Verifico JWT por el header
             switch ($method) {
                 case 'POST':
                     try {
+
+                        $listaMateriasJSON = Materia::ReadMateriaJSON();
+
+                        $nombreMateria = $_POST['nombreMateria'] ?? '';
+                        $cuatrimestre = $_POST['cuatrimestre'] ?? '';
+    
+                        $nuevaMateria = new Materia(Materia::autoID($listaMateriasJSON),$nombreMateria,$cuatrimestre);
+
+                        array_push($listaMateriasJSON,$nuevaMateria);
+                        Materia::SaveMateriaJSON($listaMateriasJSON);
+    
+                    } catch (\Throwable $e) {
+
+                        echo 'Mensaje de error: ' . $e->getMessage() . '</br>';
+                        var_dump($e->getTrace());
+
+                    }
+                    break;
+    
+                case 'GET':
+                    // var_dump(Materia::ReadMateriaJSON());
+    
+                    $listaMaterias = Materia::ReadMateriaJSON();
+                    foreach ($listaMaterias as $key) {
+
+                        echo $key . '</br>';
+
+                    }
+                    break;
+            }
+        }
+        break;
+
+        case '/asignacion':
+            if($decoded->type === 'ADMIN'){ //Verifico JWT por el header
+                switch ($method) {
+                    case 'POST':
+                        try {
+                            //Listas
+                            $listaAsignaciones = Asignacion::ReadAsignacionJSON();
+                            $listaProfesores = Profesor::ReadProfesorJSON();
+                            $listaMaterias = Materia::ReadMateriaJSON();
+
+                            //Petición Http del tipo POST
+                            $legajoProfesor = $_POST['legajoProfesor'] ?? '';
+                            $idMateria = $_POST['idMateria'] ?? '';
+                            $turno = $_POST['turno'] ?? '';
+
+                            $nuevaAsignacion = new Asignacion(Asignacion::autoID($listaAsignaciones), $legajoProfesor, $idMateria, $turno );
+
+                            foreach ($listaAsignaciones as $key ) {
+
+                                if($key->_legajoProfesor === $legajoProfesor &&
+                                   $key->_idMateria === $idMateria &&
+                                   $key->_turno === $turno){
+
+                                    echo 'No se puede tener el mismo legajo, turno y materia.<br/>';
+                                    break;
+                                    
+                                }else{
+
+                                    array_push($listaAsignaciones,$nuevaAsignacion);
+                                    Asignacion::SaveAsignacionJSON($listaAsignaciones);
+                                }
+
+                            }
+        
+                        } catch (\Throwable $e) {
+    
+                            echo 'Mensaje de error: ' . $e->getMessage() . '</br>';
+                            var_dump($e->getTrace());
+    
+                        }
+                        break;
+        
+                    case 'GET':
+                        // var_dump(Materia::ReadMateriaJSON());
+                        var_dump(Asignacion::ReadAsignacionJSON());
+                        break;
+                }
+            }
+            break;
+    
+        case '/profesor':
+        if($decoded->type === 'ADMIN'){ //Verifico JWT por el header
+            switch ($method) {
+                case 'POST':
+                    try {
+
                         $legajo = $_POST['legajo'] ?? '';
                         $nombreProfesor = $_POST['nombreProfesor'] ?? '';
                         $nuevoProfesor = new Profesor($legajo,$nombreProfesor);
@@ -156,15 +196,21 @@ switch ($path) {
                         $legajoRepetido = $nuevoProfesor->LegajoUnico($listaProfesoresJSON);
 
                         if(!$legajoRepetido){
+
                             array_push($listaProfesoresJSON,$nuevoProfesor);
                             Profesor::SaveProfesorJSON($listaProfesoresJSON);
+
                         }else{
-                            throw new Exception('Legajo repetido!');
+
+                            throw new Exception('</br>Legajo repetido!</br>');
+
                         }
     
                     } catch (\Throwable $e) {
-                        echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
+
+                        echo 'Mensaje de error: ' . $e->getMessage() . '</br>';
                         var_dump($e->getTrace());
+
                     }
                     break;
 
@@ -173,10 +219,13 @@ switch ($path) {
 
                     $listaProfes = Profesor::ReadProfesorJSON();
                     foreach ($listaProfes as $key) {
-                        echo $key . '<br/>';
+
+                        echo $key . '</br>';
+
                     }
                     break;
             }
-            break;
+        }
+        break;
 }
 

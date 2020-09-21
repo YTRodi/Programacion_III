@@ -1,0 +1,14 @@
+[
+    {
+        "_idAsignacion": 1,
+        "_legajoProfesor": "1",
+        "_idMateria": "1",
+        "_turno": "noche"
+    },
+    {
+        "_idAsignacion": 2,
+        "_legajoProfesor": "2",
+        "_idMateria": "1",
+        "_turno": "noche"
+    }
+]
