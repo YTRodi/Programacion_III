@@ -66,7 +66,7 @@ class FileHandler{
         if(!empty($fileName)){
             if($arrayObj !== null){
                 $archivo = fopen($fileName,'w');
-                fwrite($archivo,json_encode($arrayObj));
+                fwrite($archivo,json_encode($arrayObj,JSON_PRETTY_PRINT));
                 return fclose($archivo) . "<br/>Grabado con éxito! (PATH = '$fileName')";
             }
         }else{

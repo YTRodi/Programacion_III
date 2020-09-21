@@ -1,4 +1,10 @@
 <?php
+/**
+ * INSTARLA JWT DENTRO DE LA CARPETA DEL PARCIAL
+ * composer require firebase/php-jwt
+ */
+require __DIR__.'/vendor/autoload.php';
+use \Firebase\JWT\JWT; //namespace
 
 include_once __DIR__.'/clases/Usuario.php';
 include_once __DIR__.'/clases/Materia.php';
@@ -7,6 +13,45 @@ include_once __DIR__.'/clases/Profesor.php';
 $method = $_SERVER['REQUEST_METHOD'];
 $path = $_SERVER['PATH_INFO'] ?? 0;
 
+//JWT -----------------------------------------------------------------------------------
+$key = "ILoveMC";
+$token = '';
+
+// $payload = array(
+//     //Hace los claims con todo lo que necesitemos
+//     "iss" => "http://example.org",
+//     "aud" => "http://example.com",
+//     "iat" => 1356999524,
+//     "nbf" => 1357000000,
+//     "email" => "maggie@gmail.com",
+//     "type" => "admin"
+// );  
+//$jwt = JWT::encode($payload, $key);
+//print_r($jwt);
+
+//Obtenemos el token (Decodifico)
+// $token = $_SERVER['HTTP_TOKEN'] ?? '';
+// try {
+//     //Si el token que me mandan es CORRECTO me devuelve => Objecto standart class con todos los claims.
+//     //Si el token que me mandan NO ES CORRECTO me devuelve => fatal error
+//     //var_dump($_SERVER['HTTP_TOKEN']);
+//     $decoded = JWT::decode($token, $key, array('HS256'));
+    
+//     print_r($decoded);
+//     //die(); 
+
+// } catch (\Throwable $e) {
+//     echo 'error en jwt decode';
+//     //** RETORNAR UN JSON CON MENSAJE DE ERROR!!!!!!!!!!!!!!!!!!
+// }
+
+$token = $_SERVER['HTTP_TOKEN'] ?? '';
+echo $token;
+$decoded = JWT::decode($token, $key, array('HS256'));
+//echo $token;
+print_r($decoded);
+
+ 
 switch ($path) {
     case '/usuario':
         switch ($method) {
@@ -23,7 +68,7 @@ switch ($path) {
                     Usuario::SaveUsuarioJSON($listaUsuariosJSON);
 
                 } catch (\Throwable $e) {
-                    echo $e->getMessage() . '<br/>';
+                    echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
                     var_dump($e->getTrace());
                 }
                 break;
@@ -40,19 +85,24 @@ switch ($path) {
                     $nuevoUsuario = new Usuario($emailUsuario,$password);
 
                     $listaUsuariosJSON = Usuario::ReadUsuarioJSON();
-                    $countLista = count($listaUsuariosJSON);
-                    $flag = false;
-                    //var_dump($listaUsuariosJSON);
-                    //echo $nuevoUsuario;
+                    $loginUser = $nuevoUsuario->verificarUsuario($listaUsuariosJSON);
 
-                    for ($i=0; $i < $countLista; $i++) { 
-                        if($listaUsuariosJSON[$i]->_password === $password &&$listaUsuariosJSON[$i]->_email === $emailUsuario){
-                            $flag = true;
-                            break;
-                        }
+                    if($loginUser){
+
+                        //JWT (Creo mis claims personalizados)
+                        $payload = ['dataUser' => $nuevoUsuario->_email];
+
+                        // echo 'LOGIN CON ÉXITO!';
+                        //$jwt = JWT::encode($payload,$key);
+                        $token = JWT::encode($payload,$key);
+
+                        echo $token;
+
+                        echo '</br>Login con éxito!</br>';
+
+                    }else{
+                        echo 'LOGIN SIN ÉXITO :(';
                     }
-                    $retVal = ($flag) ? '<br/>Login exitoso!<br/>' : 'El Usuario no se encuentra en el archivo json';
-                    echo $retVal;
 
                 } catch (\Throwable $e) {
                     echo 'Mensaje de error: ' . $e->getMessage() . '<br/>';
@@ -74,7 +124,7 @@ switch ($path) {
                     $listaMateriasJSON = Materia::ReadMateriaJSON();
                     $nuevaMateria->_id = Materia::autoID($listaMateriasJSON);
                     array_push($listaMateriasJSON,$nuevaMateria);
-                    var_dump($listaMateriasJSON);
+                    //var_dump($listaMateriasJSON);
                     Materia::SaveMateriaJSON($listaMateriasJSON);
 
                 } catch (\Throwable $e) {

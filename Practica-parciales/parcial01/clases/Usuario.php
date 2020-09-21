@@ -45,4 +45,20 @@ class Usuario extends FileHandler{
         
         return $arrayUsuario;
     }
+
+    public function verificarUsuario(array $array = null){
+        $loginUser = false;
+
+        if($array !== null){
+            foreach ($array as $user ) {
+
+                if($user->_password === $this->_password && $user->_email === $this->_email){
+                    $loginUser = true;
+                }
+            }
+        }else{
+            throw new Exception('<br/>Array null.<br/>');
+        }
+        return $loginUser;
+    }
 }
