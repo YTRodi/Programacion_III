@@ -27,7 +27,6 @@ try {
     echo '</br>Token Incorrecto.</br>';
 
 }
-
  
 switch ($path) {
     case '/usuario':

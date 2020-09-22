@@ -1,0 +1,27 @@
+[
+    {
+        "_id": 1,
+        "_nombre": "Programacion III",
+        "_cuatrimestre": "tercero"
+    },
+    {
+        "_id": 2,
+        "_nombre": "Laboratorio III",
+        "_cuatrimestre": "tercero"
+    },
+    {
+        "_id": 3,
+        "_nombre": "Laboratorio III",
+        "_cuatrimestre": "tercero"
+    },
+    {
+        "_id": 4,
+        "_nombre": "Laboratorio IV",
+        "_cuatrimestre": "cuarto"
+    },
+    {
+        "_id": 5,
+        "_nombre": "Laboratorio IV",
+        "_cuatrimestre": "cuarto"
+    }
+]
