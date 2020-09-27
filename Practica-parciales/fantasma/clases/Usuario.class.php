@@ -75,7 +75,6 @@ class Usuario extends FileHandler{
     //LINEA A LINEA
     public function SaveUsuario(){
         try {
-            // echo parent::SaveLineToLine(Auto::$pathAutos,$this);
             echo parent::SaveLineToLine( self::$pathTxt, $this );
         } catch (\Throwable $e) {
             throw new Exception($e->getMessage());
