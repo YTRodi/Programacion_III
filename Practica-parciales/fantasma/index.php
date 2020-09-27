@@ -42,9 +42,19 @@ switch ($path) {
                     
                     $nuevoUsuario = new Usuario($emailUsuario,$password);
                     
-                    array_push($listaUsuariosJSON,$nuevoUsuario);
-                    //var_dump($listaUsuariosJSON);
-                    Usuario::SaveUsuarioJSON($listaUsuariosJSON);
+                    //!! LINEA A LINEA
+                    // $nuevoUsuario->SaveUsuario();
+
+                    
+                    // //!! JSON
+                    // array_push($listaUsuariosJSON,$nuevoUsuario);
+                    // //var_dump($listaUsuariosJSON);
+                    // Usuario::SaveUsuarioJSON($listaUsuariosJSON);
+
+                    // //!! SERIALIZADO
+                    // $listaUsuariosSer = Usuario::ReadUsuarioSerialize();
+                    // array_push($listaUsuariosSer,$nuevoUsuario);
+                    // Usuario::SaveUsuarioSerialize($listaUsuariosSer);
 
                 } catch (\Throwable $e) {
 
@@ -55,11 +65,24 @@ switch ($path) {
 
                 break;
 
+            // ?? por si me lo pide!!!!!!!!!!!!!!!!!!!!!
+            // ?? por si me lo pide!!!!!!!!!!!!!!!!!!!!!
+            // ?? por si me lo pide!!!!!!!!!!!!!!!!!!!!!
+            // ?? por si me lo pide!!!!!!!!!!!!!!!!!!!!!
+            // ?? por si me lo pide!!!!!!!!!!!!!!!!!!!!!
             case 'GET':
 
                 try {
                     
-                    var_dump(Usuario::ReadUsuarioJSON());
+                    //!! LINEA A LINEA
+                    // var_dump(Usuario::ArrayOfUsuarios());
+
+
+                    // //!! JSON
+                    // var_dump(Usuario::ReadUsuarioJSON());
+
+                    // //!! SERIALIZADO
+                    // var_dump(Usuario::ReadUsuarioSerialize());
 
                 } catch (\Throwable $e) {
 
@@ -86,29 +109,44 @@ switch ($path) {
                     $password = $_POST['password'] ?? '';
 
                     $nuevoUsuario = new Usuario($emailUsuario,$password);
+                    // echo $nuevoUsuario;
 
-                    $listaUsuariosJSON = Usuario::ReadUsuarioJSON();
-                    //var_dump($listaUsuariosJSON);
+                    // !! LINEA A LINEA
+                    // $listaUsersTXT = Usuario::ArrayOfUsuarios();
+                    // $loginUser = $nuevoUsuario->verificarUsuario( $listaUsersTXT );
+                    // if($loginUser) {
+                    //     $datosUsuario = ['email' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
+                    //     $token = AuthJWT::Login($datosUsuario);
+                    //     print_r($token);
+                    // }else {
+                    //     echo 'LOGIN SIN ÉXITO :(';
+                    // }
+
+
+
+                    // !! JSON
+                    // $listaUsuariosJSON = Usuario::ReadUsuarioJSON();
+                    // // var_dump($listaUsuariosJSON);
                     
-                    $loginUser = $nuevoUsuario->verificarUsuario($listaUsuariosJSON);
+                    // $loginUser = $nuevoUsuario->verificarUsuario($listaUsuariosJSON);
 
-                    if($loginUser){
+                    // if($loginUser){
 
-                        //?? LO QUE ME PIDA LA CONSIGNA !!!!
-                        $datosUsuario = ['email' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
+                    //     //?? LO QUE ME PIDA LA CONSIGNA !!!!
+                    //     $datosUsuario = ['email' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
 
-                        $token = AuthJWT::Login( $datosUsuario );
+                    //     $token = AuthJWT::Login( $datosUsuario );
 
-                        print_r($token);
+                    //     print_r($token);
 
-                        echo '</br>Login con éxito!</br>';
+                    //     echo '</br>Login con éxito!</br>';
 
 
-                    }else{
+                    // }else{
 
-                        echo 'LOGIN SIN ÉXITO :(';
+                    //     echo 'LOGIN SIN ÉXITO :(';
 
-                    }
+                    // }
 
                 } catch (\Throwable $e) {
 
@@ -124,15 +162,7 @@ switch ($path) {
 
     case '/materia':
 
-        //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoibWFnZ2llQGdtYWlsLmNvbSIsInR5cGUiOiJOT1JNQUwifX0.Ym1cLEBD35IjkDeGBLNd4VQmipJHMdkI--mYbQQL4CE
-        // var_dump($jwtDecodificado->data->type);
-        // die();
-        
-        
-        //$user = AuthJWT::ValidarToken( $jwt );
-        
-
-        if($jwtDecodificado->data->type === 'ADMIN'){ //Verifico JWT por el header
+        if($jwtDecodificado->type === 'ADMIN'){ //Verifico JWT por el header
 
             switch ($method) {
 

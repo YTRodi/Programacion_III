@@ -4,7 +4,9 @@ include_once __DIR__.'/FileHandler.class.php';
 class Usuario extends FileHandler{
     public $_email;
     public $_password;
-    public static $pathJSON = './archivos/Usuarios.json';
+    public static $pathTxt = './archivos/usuarios.txt';
+    public static $pathJSON = './archivos/usuarios.json';
+    public static $pathSer = './archivos/usuarios.ser';
 
     public function __construct($email, $password) {
         $this->_email = $email;
@@ -16,6 +18,27 @@ class Usuario extends FileHandler{
     public function __toString(){
         return $this->_email . '*' . $this->_password;
     }
+
+
+    //  ----------------------------------------------------------------
+    //----------------------------------------------------------------
+    //!! VERIFICACION USUARIO
+    public function verificarUsuario(array $array = null){
+        $loginUser = false;
+
+        if($array !== null){
+            foreach ($array as $user ) {
+
+                if($user->_password === $this->_password && $user->_email === $this->_email){
+                    $loginUser = true;
+                }
+            }
+        }else{
+            throw new Exception('<br/>Array null.<br/>');
+        }
+        return $loginUser;
+    }
+
 
     //----------------------------------------------------------------
     //----------------------------------------------------------------
@@ -46,21 +69,66 @@ class Usuario extends FileHandler{
         return $arrayUsuario;
     }
 
-    public function verificarUsuario(array $array = null){
-        $loginUser = false;
 
-        if($array !== null){
-            foreach ($array as $user ) {
-
-                if($user->_password === $this->_password && $user->_email === $this->_email){
-                    $loginUser = true;
-                }
-            }
-        }else{
-            throw new Exception('<br/>Array null.<br/>');
+    //----------------------------------------------------------------
+    //----------------------------------------------------------------
+    //LINEA A LINEA
+    public function SaveUsuario(){
+        try {
+            // echo parent::SaveLineToLine(Auto::$pathAutos,$this);
+            echo parent::SaveLineToLine( self::$pathTxt, $this );
+        } catch (\Throwable $e) {
+            throw new Exception($e->getMessage());
         }
-        return $loginUser;
     }
+
+    public static function ArrayOfUsuarios(){
+        try {
+            //Pasamanos...
+            $listaFromArchivo = parent::BringArray( self::$pathTxt );
+            $arrayUsuarios = [];
+            /**
+             * INDICE 0 = email
+             * INDICE 1 = password
+             */
+
+            foreach ($listaFromArchivo as $dato) {
+                $nuevoUsuario = new Usuario($dato[0],$dato[1]);
+                array_push($arrayUsuarios,$nuevoUsuario);
+            }
+
+        } catch (\Throwable $e) {
+            throw new Exception($e->getMessage());
+        }
+        
+        return $arrayUsuarios;
+    }
+
+    //----------------------------------------------------------------
+    //----------------------------------------------------------------
+    //SERIALIZAR
+    public static function SaveUsuarioSerialize(array $arrayObj){
+        try {
+            echo parent::SaveSerialize(Usuario::$pathSer,$arrayObj);
+        } catch (\Throwable $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function ReadUsuarioSerialize(){
+        try {
+            $listaFromArchivoSer = parent::ReadSerialize(Usuario::$pathSer);
+
+            return $listaFromArchivoSer;
+        } catch (\Throwable $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+
+
+
+
 
     /**
      * POR SI LAS MOSCAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1

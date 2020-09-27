@@ -7,7 +7,7 @@ class FileHandler{
         if(!empty($fileName) && !empty($datos)){
             $archivo = fopen($fileName,'a+');
             fwrite($archivo,$datos . PHP_EOL);
-            return fclose($archivo) . "<br/>Grabado con éxito! (PATH = '$fileName')";
+            return fclose($archivo) . "<br/><strong>Grabado con éxito! (PATH = '$fileName') </strong>";
         }else{
             throw new Exception('Filename no puede estar vacio.<br/>');
         }
@@ -42,17 +42,17 @@ class FileHandler{
 
         if($fileName !== ""){
             $archivo = fopen($fileName,'r');
-    
+
             while (!feof($archivo)) {
                 $linea = fgets($archivo);
-                $datos = explode("*",$linea); //Me lo va a separar cada vez que encuentre un *
-                
-                // if(count($datos) === 5){
-                    array_push($lista,$datos);
-                // }
+                if(!empty($linea))
+                {
+                    $datos = explode("*",str_replace("\r\n", "", $linea));
+                    array_push($lista, $datos);
+                }
             }
             fclose($archivo);
-            
+
         }else{
             throw new Exception('Filename no puede estar vacio.<br/>');
         }
@@ -67,7 +67,7 @@ class FileHandler{
             if($arrayObj !== null){
                 $archivo = fopen($fileName,'w');
                 fwrite($archivo,json_encode($arrayObj,JSON_PRETTY_PRINT));
-                return fclose($archivo) . "<br/>Grabado con éxito! (PATH = '$fileName')";
+                return fclose($archivo) . "<br/><strong>Grabado con éxito! (PATH = '$fileName') </strong>";
             }
         }else{
             throw new Exception('Filename no puede estar vacio.<br/>');
@@ -103,7 +103,7 @@ class FileHandler{
             if($array !== null){
                 $archivo = fopen($fileName,'w');
                 fwrite($archivo,serialize($array) . '<br/>');
-                return fclose($archivo) . "<br/>Grabado con éxito! (PATH = '$fileName')";
+                return fclose($archivo) . "<br/><strong>Grabado con éxito! (PATH = '$fileName') </strong>";
             }
         }else{
             throw new Exception('Filename no puede estar vacio.<br/>');

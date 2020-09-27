@@ -38,7 +38,7 @@ class FileHandler{
         //Traer array
         $linea = "";
         $datos = "";
-        $listaAutos = [];
+        $lista = [];
 
         if($fileName !== ""){
             $archivo = fopen($fileName,'r');
@@ -46,10 +46,9 @@ class FileHandler{
             while (!feof($archivo)) {
                 $linea = fgets($archivo);
                 $datos = explode("*",$linea); //Me lo va a separar cada vez que encuentre un *
+                array_push($lista,$datos);
+
                 
-                if(count($datos) === 5){
-                    array_push($listaAutos,$datos);
-                }
             }
             fclose($archivo);
             
@@ -57,7 +56,7 @@ class FileHandler{
             throw new Exception('Filename no puede estar vacio.<br/>');
         }
 
-        return $listaAutos;
+        return $lista;
     }
 
 

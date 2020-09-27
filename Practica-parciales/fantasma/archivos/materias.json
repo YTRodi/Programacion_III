@@ -23,5 +23,10 @@
         "_id": 5,
         "_nombre": "Laboratorio IV",
         "_cuatrimestre": "cuarto"
+    },
+    {
+        "_id": 6,
+        "_nombre": "Arquitectura y SO",
+        "_cuatrimestre": "tercero"
     }
 ]
