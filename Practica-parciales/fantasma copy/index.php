@@ -40,17 +40,16 @@ switch ($path) {
                     $emailUsuario = $_POST['emailUsuario'] ?? '';
                     $password = $_POST['password'] ?? '';
                     
-                    // $nuevoUsuario = new Usuario($emailUsuario,$password);
-                    $nuevoUsuario = new Usuario($emailUsuario, hash( 'sha256', $password ));
+                    $nuevoUsuario = new Usuario($emailUsuario,$password);
                     
                     //!! LINEA A LINEA
                     // $nuevoUsuario->SaveUsuario();
 
                     
-                    //!! JSON
-                    array_push($listaUsuariosJSON,$nuevoUsuario);
-                    //var_dump($listaUsuariosJSON);
-                    Usuario::SaveUsuarioJSON($listaUsuariosJSON);
+                    // //!! JSON
+                    // array_push($listaUsuariosJSON,$nuevoUsuario);
+                    // //var_dump($listaUsuariosJSON);
+                    // Usuario::SaveUsuarioJSON($listaUsuariosJSON);
 
                     // //!! SERIALIZADO
                     // $listaUsuariosSer = Usuario::ReadUsuarioSerialize();
@@ -109,8 +108,7 @@ switch ($path) {
                     $emailUsuario = $_POST['emailUsuario'] ?? '';
                     $password = $_POST['password'] ?? '';
 
-                    // $nuevoUsuario = new Usuario($emailUsuario,$password);
-                    $nuevoUsuario = new Usuario($emailUsuario, hash( 'sha256', $password ));
+                    $nuevoUsuario = new Usuario($emailUsuario,$password);
                     // echo $nuevoUsuario;
 
                     // !! LINEA A LINEA
@@ -125,29 +123,30 @@ switch ($path) {
                     // }
 
 
+
                     // !! JSON
-                    $listaUsuariosJSON = Usuario::ReadUsuarioJSON();
-                    // var_dump($listaUsuariosJSON);
+                    // $listaUsuariosJSON = Usuario::ReadUsuarioJSON();
+                    // // var_dump($listaUsuariosJSON);
+                    
+                    // $loginUser = $nuevoUsuario->verificarUsuario($listaUsuariosJSON);
 
-                    $loginUser = $nuevoUsuario->verificarUsuario($listaUsuariosJSON);
+                    // if($loginUser){
 
-                    if($loginUser){
+                    //     //?? LO QUE ME PIDA LA CONSIGNA !!!!
+                    //     $datosUsuario = ['email' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
 
-                        //?? LO QUE ME PIDA LA CONSIGNA !!!!
-                        $datosUsuario = ['email' => $nuevoUsuario->_email, 'type' => 'ADMIN'];
+                    //     $token = AuthJWT::Login( $datosUsuario );
 
-                        $token = AuthJWT::Login( $datosUsuario );
+                    //     print_r($token);
 
-                        print_r($token);
-
-                        echo '</br>Login con éxito!</br>';
+                    //     echo '</br>Login con éxito!</br>';
 
 
-                    }else{
+                    // }else{
 
-                        echo 'LOGIN SIN ÉXITO :(';
+                    //     echo 'LOGIN SIN ÉXITO :(';
 
-                    }
+                    // }
 
                 } catch (\Throwable $e) {
 
