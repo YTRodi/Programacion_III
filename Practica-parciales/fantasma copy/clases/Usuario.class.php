@@ -28,7 +28,6 @@ class Usuario extends FileHandler{
 
         if($array !== null){
             foreach ($array as $user ) {
-
                 if($user->_password === $this->_password && $user->_email === $this->_email){
                     $loginUser = true;
                 }

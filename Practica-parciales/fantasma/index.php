@@ -75,8 +75,8 @@ switch ($path) {
 
                 try {
                     
-                    //!! LINEA A LINEA
-                    // var_dump(Usuario::ArrayOfUsuarios());
+                    //!! LINEA A LINEA 
+                    var_dump(Usuario::ArrayOfUsuarios());
 
 
                     // //!! JSON
@@ -109,8 +109,7 @@ switch ($path) {
                     $emailUsuario = $_POST['emailUsuario'] ?? '';
                     $password = $_POST['password'] ?? '';
 
-                    // $nuevoUsuario = new Usuario($emailUsuario,$password);
-                    $nuevoUsuario = new Usuario($emailUsuario, hash( 'sha256', $password ));
+                    $nuevoUsuario = new Usuario($emailUsuario,$password);
                     // echo $nuevoUsuario;
 
                     // !! LINEA A LINEA
@@ -162,8 +161,7 @@ switch ($path) {
         break;
 
     case '/materia':
-
-        if($jwtDecodificado->type === 'ADMIN'){ //Verifico JWT por el header
+        if($jwtDecodificado->data->type === 'ADMIN'){ //Verifico JWT por el header
 
             switch ($method) {
 
