@@ -1,0 +1,14 @@
+https://www.php.net/manual/es/book.pdo.php
+
+
+Métodos de querys:
+
+$array = $query->fetchAll() = trae todas las filas de la tabla ( Si queremos traer muchos resultados, este métodos no es el más conveniente porque guardamos todos los datos en memoria y gastamos muchos recuersos. )
+
+$row = $query->fetch() = Nos trae un array pero no los guarda en memoria. ( Mejor performance para trabajar con muchos datos. )
+
+
+Constantes en los métodos 'fetch':
+
+Transformamos cada resultado ( row ) en la clase que le indicamos.
+$users = $query->fetchAll( PDO::FETCH_CLASS, 'User' ); 
