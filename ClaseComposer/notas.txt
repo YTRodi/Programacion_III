@@ -1,0 +1,47 @@
+---------------------------------IMPORTANTE---------------------------------
+#1 INCLUIR SIEMPRE EN EL INDEX.PHP el archivo autoload.php:
+
+==================================================
+||   require __DIR__ . '/vendor/autoload.php';  ||
+==================================================
+
+--QUE VA A HACER ESTO?---
+Va a encargarse de incluir todas las depedencias.
+Va a exponer todos los namespaces de todos los proyectos que tengamos.
+
+
+
+!!!No vamos a transportar las depedencias!!!
+
+#2 -Comandos utilizados de COMPOSER:
+
+======================
+||   composer init  || (descripcion de las depedencias en el composer.json)
+======================
+
+========================
+||   composer install  || (Instala todas las depedencias que están en el atributo 'require' del archivo composer.json)
+========================
+
+#3 -----------------------autoload en composer.json-----------------------
+'psr4' es el standart de depedencias en PHP.
+EJEMPLO: ( Con esto no vamos a tener que hacer los 'include' en el index.php )
+    // Cuando hagamos el autoload, que tengan en cuenta este namespace.
+    "autoload": {
+        "psr-4": {  
+            // Nombre del namespace : nombre de la carpeta
+            "Models\\":"models" 
+        }
+    }
+
+#4 Rehacemos el autoload.
+
+===============================
+||   composer dump-autoload  ||
+===============================
+
+-------------------------------------------------------------------------------
+
+https://victorroblesweb.es/2014/07/15/ejemplo-php-poo-mvc/
+
+-------------------------------------------------------------------------------

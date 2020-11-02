@@ -1,0 +1,19 @@
+{
+    "name": "yago/clase-composer",
+    "description": "Configuracion de dependencias",
+    "authors": [
+        {
+            "name": "YTRodi",
+            "email": "yagorodi@gmail.com"
+        }
+    ],
+    "require": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "Models\\":"models",
+            "Models\\Animales\\":"models"
+        }
+    }
+}
