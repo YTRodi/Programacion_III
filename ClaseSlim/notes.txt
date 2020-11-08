@@ -1,0 +1,47 @@
+// Hay que hacer una pequeña modificación
+// Hay que indicar cuando no está en la raíz del servidor.
+$app->setBasePath( '/Programacion_III/ClaseSlim' );
+
+// En la sección de Web Servers ( Documentación Slim ) hay una configuración cuando usamos servidores APACHE
+// hay que crear un archivo '.htaccess' con el siguiente contenido:
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+----- COMO SETEAR EL CONTENT TYPE A JSON ------
+
+$newResponse = $response->withHeader( 'Content-type', 'application/json' ); // Para que me lo formatee a JSON
+return $newResponse;
+
+---------------------- RUTAS ---------------
+// No es lo mismo /users que /users/, si queremos tener las dos rutas usamos:
+// /users[/] = con los [] le decimos que es opcional
+$app->get('/users[/]', function (Request $request, Response $response, $args) {
+    $response->getBody()->write( "Hello users!" );
+    return $response;
+});
+
+-- MÉTODOS IMPORTANTES --
+https://www.slimframework.com/docs/v4/objects/request.html
+https://www.slimframework.com/docs/v4/objects/response.html
+
+// REQUEST:
+    -Tenemos todos los datos e info de la petición que nos llega al servidor.
+
+// RESPONSE:
+    -Siempre hay que dar una respuesta: https://www.slimframework.com/docs/v4/objects/response.html
+    -EJEMPLO: Podemos obtener y enviar un nuevo ESTADO, HEADER/S
+        $status = $response->getStatusCode();
+        $response->getBody()->write( json_encode( $status ) );
+
+
+------------- COMO PASAR PARÁMETROS A TRAVÉS DE UNA RUTA ?????????????????????????? 
+
+// Voy a requerir un id por ejemplo, esta variable 'id' va a estar en el $args que viene como PARÁMETRO
+$app->get('/users/{id}', function (Request $request, Response $response, $args) {
+
+    $response->getBody()->write( "Hello users! GET" );
+
+    return $response;
+});

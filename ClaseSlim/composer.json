@@ -1,0 +1,14 @@
+{
+    "name": "yago/clase-slim",
+    "description": "Clase del micro framework Slim",
+    "authors": [
+        {
+            "name": "YTRodi",
+            "email": "yagorodi@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.2"
+    }
+}
