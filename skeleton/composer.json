@@ -1,0 +1,22 @@
+{
+    "name": "yago/skeleton",
+    "description": "",
+    "authors": [
+        {
+            "name": "YTRodi",
+            "email": "yagorodi@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.2",
+        "illuminate/database": "^8.13",
+        "illuminate/events": "^8.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Config\\":"config",
+            "App\\":"src"
+        }
+    }
+}
