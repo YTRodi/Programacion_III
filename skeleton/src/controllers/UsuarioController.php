@@ -24,7 +24,8 @@ class UsuarioController {
         $response->getBody()->write( json_encode( $rta ) );
 
         // Seteo la cabecera, pq vamos a trabajar con JSON.
-        return $response->withHeader( 'Content-type', 'application/json' );
+        // return $response->withHeader( 'Content-type', 'application/json' );
+        return $response;
 
     }
 
