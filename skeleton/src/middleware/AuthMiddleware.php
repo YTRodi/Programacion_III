@@ -17,8 +17,8 @@ class AuthMiddleware
         if ( !$valido ) {
 
             $response = new Response();
-            // $response->getBody()->write( 'Prohibido pasar' );
-            throw new \Slim\Exception\HttpForbiddenException( $request );
+            $response->getBody()->write( 'Prohibido pasar' );
+            // throw new \Slim\Exception\HttpForbiddenException( $request );
             return $response->withStatus( 403 );
 
         } else { // Este else está medio al pelo
