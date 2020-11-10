@@ -11,13 +11,14 @@ class AuthMiddleware
     // Vamos a recibir el token por la request, nos fijamos si es válido
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        $valido = true;
+        // Si cambio el valor de $valido, me deja entrar o no...
+        $valido = !true;
 
         if ( !$valido ) {
 
             $response = new Response();
-            $response->getBody()->write( 'Prohibido pasar' );
-            // throw new \Slim\Exception\HttpForbiddenException( $request );
+            // $response->getBody()->write( 'Prohibido pasar' );
+            throw new \Slim\Exception\HttpForbiddenException( $request );
             return $response->withStatus( 403 );
 
         } else { // Este else está medio al pelo
