@@ -14,13 +14,52 @@ $app = AppFactory::create();
 $app->setBasePath( '/Programacion_III/ClaseSlim' );
 
 
-$app->get('/', function (Request $request, Response $response, $args) {
+// $app->get('/', function (Request $request, Response $response, $args) {
 
-    $response->getBody()->write( "Hello world!" ); // El método 'write' solo recibe strings
+//     $response->getBody()->write( "Hello world!" ); // El método 'write' solo recibe strings
 
-    return $response;
+//     try {
 
-});
+//         $db_connection = new PDO( 'mysql:host=localhost;dbname=dbprueba_000webhost;', 'root', '' );
+
+
+//         if( !$db_connection ){
+//             echo 'no se pudo conectar al servidor' . '<br/';
+//         }else {
+//             echo 'conectado con éxito!' . '<br/>';
+
+        
+//             $query = $db_connection->query( 'SELECT * FROM usuarios' );
+//             echo 'Cantidad de filas: ' .  $query->rowCount() . '<br/>'; 
+
+//             #1 fetchAll()
+//             $users = $query->fetchAll(); // Retorna un [] con el doble de datos que tiene las columnas de la DB ( Una es nombre de la columa y la que sigue es el índice )
+
+//             // foreach ($users as $key => $value) {
+                
+//             //     // Puedo acceder tanto por el índice numérico como por el nombre de la columna.
+//             //     var_dump( $value );
+//             //     // echo '<br/>';
+//             //     // echo $value[ 'nombre' ] . '<br/>';
+//             //     // echo $value[ 2 ] . '<br/>';
+//             // }
+
+
+//             // Trato de INSERTAR 
+//             //! FUNCIONA!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//             // $query2 = $db_connection->query( "INSERT INTO usuarios (nombre, email) VALUES ('Perlita','perlus@yahoo.com')" );
+
+//             echo '-----------------------------------------------------------<br/>';
+//             var_dump($users);
+//         }
+//     } catch (\Throwable $e) {
+//         echo $e->getMessage();
+//     }
+    
+
+//     return $response;
+
+// });
 
 
 // No es lo mismo /users que /users/, si queremos tener las dos rutas usamos:
@@ -115,7 +154,7 @@ $app->group('/mascota', function ( RouteCollectorProxy $group ) {
     $group->post('/', function (Request $request, Response $response, $args) {
 
         $response->getBody()->write( 'POST en: ' . $request->getUri() );
-
+        
         return $response;
     });
 
